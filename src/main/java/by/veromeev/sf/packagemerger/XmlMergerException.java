@@ -1,6 +1,6 @@
 package by.veromeev.sf.packagemerger;
 
-public class XmlMergerException extends Exception {
+public class XmlMergerException extends RuntimeException {
     XmlMergerException(String message) {
         super(message);
     }

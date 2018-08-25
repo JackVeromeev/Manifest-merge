@@ -2,23 +2,23 @@
 
 ## Implemented component merge strategies:
 
-- [ ] Union ($A \cup B$)
-- [ ] Intersection ($A \cap B$)
-- [ ] Subtraction ($A \setminus B$)
+- [x] Union ($A \cup B$)
+- [x] Intersection ($A \cap B$)
+- [x] Subtraction ($A \setminus B$)
 
 ## Implemented version choose strategy
 
-- [ ] Highest
-- [ ] Lowest
-- [ ] Custom
-- [ ] Form the first package
-- [ ] From the last package
+- [x] Highest
+- [x] Lowest
+- [x] Custom
+- [x] Form the first package
+- [x] From the last package
 
 ## Implemented package name and description strategy
 
-- [ ] Custom
-- [ ] Form the first package
-- [ ] From the last package
+- [x] Custom
+- [x] Form the first package
+- [x] From the last package
 
 ## License
 

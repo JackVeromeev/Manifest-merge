@@ -2,9 +2,9 @@
 
 ## Implemented component merge strategies:
 
-- [x] Union ($A \cup B$)
-- [x] Intersection ($A \cap B$)
-- [x] Subtraction ($A \setminus B$)
+- [x] Union (A ∩ B)
+- [x] Intersection (A ∪ B)
+- [x] Subtraction (A ∖ B)
 
 ## Implemented version choose strategy
 

@@ -2,7 +2,9 @@ package by.veromeev.sf.packagemerger;
 
 public class XmlMergerException extends RuntimeException {
 
-    static XmlMergerException fileParsingFailure(String filepath, Exception cause) {
+    private static final long serialVersionUID = 1L;
+
+	static XmlMergerException fileParsingFailure(String filepath, Exception cause) {
         String message = "Unable to build the document \"" + filepath + "\"";
         return new XmlMergerException(message, cause);
     }

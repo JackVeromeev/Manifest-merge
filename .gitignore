@@ -25,3 +25,8 @@ hs_err_pid*
 #Intellij IDEA files
 .idea/*
 *.iml
+
+#VS Code files
+.settings/*
+.classpath
+.project

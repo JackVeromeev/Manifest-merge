@@ -2,108 +2,103 @@ package by.veromeev.sf.packagemerger;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.TreeSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 class PackageDescriptor {
-    private final String packageName;
-    private final String description;
-    private final String version;
-    private final Map<String, Set<String>> components;
+    private String packageName;
+    private String description;
+    private String version;
+    private Map<String, Set<String>> components;
+
+    PackageDescriptor(
+        String packageName,
+        String description,
+        String version,
+        Map<String, Set<String>> components
+    ) {
+        this.packageName = packageName;
+        this.description = description;
+        this.version = version;
+        this.components = components;
+    }
+
+    PackageDescriptor() {
+        this(null, null, null, new TreeMap<>());
+    }
 
     /**
      * Parses the xml Document from file, path to which is set
      * @param pathName path to source file
      */
     PackageDescriptor(String pathName)  {
-        Document document = getDocument(pathName);
-        Map<String, Set<String>> components = new TreeMap<>();
-        String packageName = null;
-        String description = null;
-        String version = null;
+        this();
+        Document document = XmlUtils.readFile(pathName);
         for (Element element : document.getRootElement().getChildren()) {
             switch (element.getName().toUpperCase()) {
                 case "TYPES" :
-                    parseComponents(element, components);
+                    this.parseComponents(element);
                 break;
                 case "VERSION" :
-                    version = getElementInnerText(element);
+                    this.version = this.getElementInnerText(element);
                 break;
                 case "FULLNAME" :
-                    packageName = getElementInnerText(element);
+                    this.packageName = this.getElementInnerText(element);
                 break;
                 case "DESCRIPTION" :
-                    description = getElementInnerText(element);
+                    this.description = this.getElementInnerText(element);
                 break;
                 default: break;
             }
         }
-        this.components = components;
-        this.packageName = packageName;
-        this.description = description;
-        this.version = version;
-    }
-
-    PackageDescriptor(String packageName,
-                             String description,
-                             String version,
-                             Map<String, Set<String>> components) {
-        this.packageName = packageName;
-        this.description = description;
-        this.version = version;
-        this.components = components;
     }
 
     String getPackageName() {
         return packageName;
     }
 
+    void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
     String getDescription() {
         return description;
+    }
+
+    void setDescription(String description) {
+        this.description = description;
     }
 
     String getVersion() {
         return version;
     }
 
+    void setVersion(String version) {
+        this.version = version;
+    }
+
     Map<String, Set<String>> getComponents() {
         return components;
     }
 
-    // constructor helping methods
-
-    private String getElementInnerText(Element element) {
-        return element.getContent(0).getValue();
-    }
-
-    private void parseComponents(Element element, Map<String, Set<String>> components) {
+    private void parseComponents(Element element) {
         Set<String> members = new TreeSet<>();
         String memberType = null;
         for (Element child : element.getChildren()) {
             if (child.getName().toLowerCase().equals("name")) {
-                memberType = getElementInnerText(child);
+                memberType = this.getElementInnerText(child);
             } else if (child.getName().toLowerCase().equals("members")) {
-                members.add(getElementInnerText(child));
+                members.add(this.getElementInnerText(child));
             }
         }
-        components.computeIfAbsent(memberType, key -> new TreeSet<>());
-        components.get(memberType).addAll(members);
+        this.components.computeIfAbsent(memberType, key -> new TreeSet<>());
+        this.components.get(memberType).addAll(members);
     }
 
-    private Document getDocument(String pathName) {
-        SAXBuilder builder = new  SAXBuilder();
-        try {
-            return builder.build(new File(pathName));
-        } catch (JDOMException | IOException e) {
-            throw XmlMergerException.fileParsingFailure(pathName, e);
-        }
+    private String getElementInnerText(Element element) {
+        return element.getContent(0).getValue();
     }
-
 }

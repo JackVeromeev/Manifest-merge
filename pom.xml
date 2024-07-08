@@ -5,8 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>by.veromeev.salesforce</groupId>
-    <artifactId>package-xml-merger</artifactId>
-    <version>0.0-IN DEVEOPMENT</version>
+    <artifactId>manifest-merge</artifactId>
+    <version>0.1-IN DEVEOPMENT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
